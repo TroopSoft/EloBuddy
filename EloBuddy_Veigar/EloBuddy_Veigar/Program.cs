@@ -106,7 +106,8 @@ namespace EloBuddy_Veigar
 
             UpdateMenu = Menu.AddSubMenu("Last Update Logs", "Updates");
 
-            UpdateMenu.Add("release", new CheckBox(" 06/03/2016 RELEASE "));
+            UpdateMenu.AddLabel("06/03/16 Release");
+            UpdateMenu.AddLabel("If any Bugs occur , write it in the Thread.");
 
             Game.OnTick += Game_OnTick;
             Drawing.OnDraw += Drawing_OnDraw;
@@ -238,8 +239,6 @@ namespace EloBuddy_Veigar
                 {
                     Q.Cast(minion);
                 }
-                if (Orbwalker.IsAutoAttacking)
-                    return;
             }
         }
 
