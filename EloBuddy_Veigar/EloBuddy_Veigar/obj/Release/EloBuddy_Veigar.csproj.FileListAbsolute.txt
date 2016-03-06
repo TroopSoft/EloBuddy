@@ -1,0 +1,11 @@
+C:\Users\Carsten1\Documents\Visual Studio 2015\Projects\EloBuddy_Veigar\EloBuddy_Veigar\bin\Release\EloBuddy_Veigar.exe.config
+C:\Users\Carsten1\Documents\Visual Studio 2015\Projects\EloBuddy_Veigar\EloBuddy_Veigar\bin\Release\EloBuddy_Veigar.exe
+C:\Users\Carsten1\Documents\Visual Studio 2015\Projects\EloBuddy_Veigar\EloBuddy_Veigar\bin\Release\EloBuddy_Veigar.pdb
+C:\Users\Carsten1\Documents\Visual Studio 2015\Projects\EloBuddy_Veigar\EloBuddy_Veigar\bin\Release\EloBuddy.dll
+C:\Users\Carsten1\Documents\Visual Studio 2015\Projects\EloBuddy_Veigar\EloBuddy_Veigar\bin\Release\EloBuddy.SDK.dll
+C:\Users\Carsten1\Documents\Visual Studio 2015\Projects\EloBuddy_Veigar\EloBuddy_Veigar\bin\Release\SharpDX.Direct3D9.dll
+C:\Users\Carsten1\Documents\Visual Studio 2015\Projects\EloBuddy_Veigar\EloBuddy_Veigar\bin\Release\SharpDX.dll
+C:\Users\Carsten1\Documents\Visual Studio 2015\Projects\EloBuddy_Veigar\EloBuddy_Veigar\bin\Release\Newtonsoft.Json.dll
+C:\Users\Carsten1\Documents\Visual Studio 2015\Projects\EloBuddy_Veigar\EloBuddy_Veigar\obj\Release\EloBuddy_Veigar.csprojResolveAssemblyReference.cache
+C:\Users\Carsten1\Documents\Visual Studio 2015\Projects\EloBuddy_Veigar\EloBuddy_Veigar\obj\Release\EloBuddy_Veigar.exe
+C:\Users\Carsten1\Documents\Visual Studio 2015\Projects\EloBuddy_Veigar\EloBuddy_Veigar\obj\Release\EloBuddy_Veigar.pdb
