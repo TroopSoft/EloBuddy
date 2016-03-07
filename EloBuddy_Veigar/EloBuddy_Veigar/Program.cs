@@ -54,7 +54,7 @@ namespace EloBuddy_Veigar
 
             Q = new Spell.Skillshot(SpellSlot.Q, 950, SkillShotType.Linear, 250, 950, 75);
             W = new Spell.Skillshot(SpellSlot.W, 950, SkillShotType.Linear, 400, 1060, 312);
-            E = new Spell.Skillshot(SpellSlot.E, 1050, SkillShotType.Linear, 759, 1560, 481);
+            E = new Spell.Skillshot(SpellSlot.E, 1050, SkillShotType.Linear, 400, 1050, 210);
             R = new Spell.Targeted(SpellSlot.R, 650);
 
             Menu = MainMenu.AddMenu("Soft Veigar", "softveigar");
@@ -81,11 +81,12 @@ namespace EloBuddy_Veigar
             FarmingMenu.Add("QlasthitManapercent", new Slider("Mana < %", 45));
 
 
-            MiscsMenu = Menu.AddSubMenu("More Settings", "Misc");
+            MiscsMenu = Menu.AddSubMenu("Misc", "Misc");
 
             MiscsMenu.AddLabel("Auto");
             MiscsMenu.Add("Auto Ignite", new CheckBox("Auto Ignite"));
             MiscsMenu.Add("autoRenemyHP", new Slider("Enemy HP < %", 10));
+            MiscsMenu.Add("InterruptSpellsE", new CheckBox("Use E Interrupt Spells"));
 
             KsMenu = Menu.AddSubMenu("Ks", "KS Menu");
 
@@ -106,16 +107,18 @@ namespace EloBuddy_Veigar
 
             UpdateMenu = Menu.AddSubMenu("Last Update Logs", "Updates");
 
-            UpdateMenu.AddLabel("06/03/16 Release");
-            UpdateMenu.AddLabel("If any Bugs occur , write it in the Thread.");
+            UpdateMenu.Add("release", new CheckBox(" 06/03/2016 RELEASE "));
+            UpdateMenu.Add("release", new CheckBox(" 07/03/2016 FIXED COMBO // Added E Interrupt"));
 
             Game.OnTick += Game_OnTick;
             Drawing.OnDraw += Drawing_OnDraw;
+            Interrupter.OnInterruptableSpell += Interrupter2_OnInterruptableTarget;
 
-            Chat.Print("Veigar by TroopSoft Loaded", Color.Aqua)
+            Chat.Print("Soft Veigar by TroopSoft Loaded", Color.Aqua)
                 ;
+            Chat.Print("If any Bug does exist , message TroopSoft on EloBuddy!", Color.CadetBlue);
+            Chat.Print("Dominate this game!!", Color.Green);
             Chat.Print("HAVE FUN!", Color.LightSalmon);
-            Chat.Print("If any Bug does exist , message TroopSoft on EloBuddy!", Color.GreenYellow);
 
         }
 
@@ -141,16 +144,43 @@ namespace EloBuddy_Veigar
 
         }
 
+
+        private static void Interrupter2_OnInterruptableTarget(
+            Obj_AI_Base sender,
+            Interrupter.InterruptableSpellEventArgs args)
+        {
+
+            if (Menu.Get<CheckBox>("Misc").CurrentValue)
+            {
+                return;
+            }
+
+            if (!sender.IsValidTarget() || !sender.IsEnemy || sender.IsAlly || sender.IsMe || sender == null)
+            {
+                return;
+            }
+
+            if (Menu.Get<CheckBox>("InterruptSpellsE").CurrentValue)
+            {
+                if (E.IsReady() && sender.IsValidTarget(E.Range))
+                {
+                    E.Cast(sender);
+                    return;
+                }
+            }
+        }
+
+
         private static void Harass()
         {
-            var useQ = ComboMenu["HarassW"].Cast<CheckBox>().CurrentValue;
+            var useQ = ComboMenu["HarassQ"].Cast<CheckBox>().CurrentValue;
 
             if (useQ && Q.IsReady())
             {
                 var target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
                 var pred = Q.GetPrediction(target);
                 if (target != null && pred.HitChance >= HitChance.Medium
-                    && pred.GetCollisionObjects<Obj_AI_Base>().Count() > 0
+                    && pred.GetCollisionObjects<Obj_AI_Base>().Count() > 1
                     && pred.GetCollisionObjects<Obj_AI_Base>()[0].NetworkId == target.NetworkId)
                 {
                    Q.Cast(pred.CastPosition);
@@ -173,7 +203,17 @@ namespace EloBuddy_Veigar
                 if (R.IsReady() && useR && target.IsValidTarget(R.Range) && !target.IsZombie
                     && target.Health <= _Player.GetSpellDamage(target, SpellSlot.R))
                 {
-                    R.Cast(target);
+                    if (!target.HasBuffOfType(BuffType.Invulnerability) && !target.HasBuffOfType(BuffType.SpellShield)
+                        && !target.HasBuff("kindredrnodeathbuff") //Kindred Ult
+                        && !target.HasBuff("FioraW") //Fiora W
+                        && !target.HasBuff("JudicatorIntervention") //Kayle R
+                        && !target.HasBuff("UndyingRage") //Trynd R
+                        && !target.HasBuff("BardRStasis") //Bard R
+                        && !target.HasBuff("ChronoShift") //Zilean R
+                        )
+                    {
+                        R.Cast(target);
+                    }
                 }
             }
         }
@@ -201,9 +241,22 @@ namespace EloBuddy_Veigar
             {
                 W.Cast(target);
             }
-            if (R.IsReady() && useR && target.IsValidTarget(650) && !target.IsDead && !target.IsZombie && !E.IsOnCooldown && Q.IsOnCooldown && E.IsOnCooldown && Q.IsOnCooldown)
+            if (useR && R.IsReady())
             {
-                R.Cast(target);
+                if (target.IsValidTarget(R.Range) && !target.IsZombie)
+                {
+                    if (!target.HasBuffOfType(BuffType.Invulnerability) && !target.HasBuffOfType(BuffType.SpellShield)
+                        && !target.HasBuff("kindredrnodeathbuff") //Kindred Ult
+                        && !target.HasBuff("FioraW") //Fiora W
+                        && !target.HasBuff("JudicatorIntervention") //Kayle R
+                        && !target.HasBuff("UndyingRage") //Trynd R
+                        && !target.HasBuff("BardRStasis") //Bard R
+                        && !target.HasBuff("ChronoShift") //Zilean R
+                        )
+                    {
+                        R.Cast(target);
+                    }
+                }
             }
         }
 
@@ -236,6 +289,8 @@ namespace EloBuddy_Veigar
             {
                 if (useQ && Q.IsReady() && minion.IsValidTarget(Q.Range)
                     && minion.Health < _Player.GetSpellDamage(minion, SpellSlot.Q))
+                    if (Orbwalker.IsAutoAttacking)
+                        return;
                 {
                     Q.Cast(minion);
                 }
