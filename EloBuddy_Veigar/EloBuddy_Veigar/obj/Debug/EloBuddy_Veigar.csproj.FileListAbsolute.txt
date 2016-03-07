@@ -20,6 +20,3 @@ C:\Users\Carsten1\Documents\GitHub\EloBuddy_TroopSoft\EloBuddy_Veigar\EloBuddy_V
 C:\Users\Carsten1\Documents\GitHub\EloBuddy_TroopSoft\EloBuddy_Veigar\EloBuddy_Veigar\bin\Debug\SharpDX.dll
 C:\Users\Carsten1\Documents\GitHub\EloBuddy_TroopSoft\EloBuddy_Veigar\EloBuddy_Veigar\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Carsten1\Documents\GitHub\EloBuddy_TroopSoft\EloBuddy_Veigar\EloBuddy_Veigar\obj\Debug\EloBuddy_Veigar.csprojResolveAssemblyReference.cache
-C:\Users\Carsten1\Documents\GitHub\EloBuddy\EloBuddy_Veigar\EloBuddy_Veigar\bin\Debug\EloBuddy_Veigar.exe.config
-C:\Users\Carsten1\Documents\GitHub\EloBuddy\EloBuddy_Veigar\EloBuddy_Veigar\obj\Debug\EloBuddy_Veigar.exe
-C:\Users\Carsten1\Documents\GitHub\EloBuddy\EloBuddy_Veigar\EloBuddy_Veigar\obj\Debug\EloBuddy_Veigar.pdb

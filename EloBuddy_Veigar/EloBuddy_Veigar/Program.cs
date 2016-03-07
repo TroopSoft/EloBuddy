@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Linq;
-using SharpDX;
 using EloBuddy;
 using EloBuddy.SDK;
 using EloBuddy.SDK.Enumerations;
@@ -19,10 +18,6 @@ namespace EloBuddy_Veigar
         public static Spell.Skillshot W;
 
         public static Spell.Skillshot E;
-
-        private static readonly AIHeroClient player = ObjectManager.Player;
-
-        public Vector3 EPos { get; set; }
 
         public static Spell.Targeted R;
 
@@ -178,19 +173,18 @@ namespace EloBuddy_Veigar
 
         private static void Harass()
         {
+            var useQ = ComboMenu["HarassQ"].Cast<CheckBox>().CurrentValue;
+
+            if (useQ && Q.IsReady())
             {
                 var target = TargetSelector.GetTarget(Q.Range, DamageType.Magical);
                 var pred = Q.GetPrediction(target);
                 if (target != null && pred.HitChance >= HitChance.Medium
                     && pred.GetCollisionObjects<Obj_AI_Base>().Count() > 1
                     && pred.GetCollisionObjects<Obj_AI_Base>()[0].NetworkId == target.NetworkId)
-                    if (HarassMenu["harassQ"].Cast<CheckBox>().CurrentValue && target.IsValidTarget(Q.Range))
-                    {
-                        if (player.Distance(target.ServerPosition) >= 700)
-                        {
-                            Q.Cast(target);
-                        }
-                    }
+                {
+                   Q.Cast(pred.CastPosition);
+                }
             }
         }
 
@@ -231,8 +225,6 @@ namespace EloBuddy_Veigar
             var useW = ComboMenu["WCom"].Cast<CheckBox>().CurrentValue;
             var useE = ComboMenu["ECom"].Cast<CheckBox>().CurrentValue;
             var useR = ComboMenu["RCom"].Cast<CheckBox>().CurrentValue;
-            var Epredict = E.GetPrediction(target);
-            var hithere = Epredict.CastPosition.Extend(ObjectManager.Player.Position, -200);
 
             if (useQ && Q.IsReady() && Q.GetPrediction(target).HitChance >= HitChance.High && !target.IsDead
                 && !target.IsZombie)
@@ -242,7 +234,7 @@ namespace EloBuddy_Veigar
             if (useE && E.IsReady() && E.GetPrediction(target).HitChance >= HitChance.Medium && !target.IsDead
                 && !target.IsZombie)
             {
-                E.Cast((Vector3)hithere);
+                E.Cast(target);
             }
             if (useW && W.IsReady() && W.GetPrediction(target).HitChance >= HitChance.High && !target.IsDead
                 && !target.IsZombie)
