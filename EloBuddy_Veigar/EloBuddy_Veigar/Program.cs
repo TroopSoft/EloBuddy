@@ -112,12 +112,10 @@ namespace EloBuddy_Veigar
 
             Game.OnTick += Game_OnTick;
             Drawing.OnDraw += Drawing_OnDraw;
-            Interrupter.OnInterruptableSpell += Interrupter2_OnInterruptableTarget;
 
             Chat.Print("Soft Veigar by TroopSoft Loaded", Color.Aqua);
             Chat.Print("If any Bug does exist , message TroopSoft on EloBuddy!", Color.CadetBlue);
             Chat.Print("Dominate this game!!", Color.Green);
-            Chat.Print("HAVE FUN!", Color.LightSalmon);
 
         }
 
@@ -141,32 +139,6 @@ namespace EloBuddy_Veigar
             }
             Killsteal();
 
-        }
-
-
-        private static void Interrupter2_OnInterruptableTarget(
-            Obj_AI_Base sender,
-            Interrupter.InterruptableSpellEventArgs args)
-        {
-
-            if (Menu.Get<CheckBox>("Misc").CurrentValue)
-            {
-                return;
-            }
-
-            if (!sender.IsValidTarget() || !sender.IsEnemy || sender.IsAlly || sender.IsMe || sender == null)
-            {
-                return;
-            }
-
-            if (Menu.Get<CheckBox>("InterruptSpellsE").CurrentValue)
-            {
-                if (E.IsReady() && sender.IsValidTarget(E.Range))
-                {
-                    E.Cast(sender);
-                    return;
-                }
-            }
         }
 
 
@@ -314,6 +286,9 @@ private static void Drawing_OnDraw(EventArgs args)
             {
                 new Circle() { Color = Color.LightSalmon, BorderWidth = 1, Radius = R.Range }.Draw(_Player.Position);
             }
+
+
+
         }
     }
 }
