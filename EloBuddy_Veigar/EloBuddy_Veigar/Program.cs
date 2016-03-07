@@ -54,7 +54,7 @@ namespace EloBuddy_Veigar
 
             Q = new Spell.Skillshot(SpellSlot.Q, 950, SkillShotType.Linear, 250, 950, 75);
             W = new Spell.Skillshot(SpellSlot.W, 950, SkillShotType.Linear, 400, 1060, 312);
-            E = new Spell.Skillshot(SpellSlot.E, 1050, SkillShotType.Linear, 400, 1050, 210);
+            E = new Spell.Skillshot(SpellSlot.E, 1050, SkillShotType.Linear, 300, 1050, 185);
             R = new Spell.Targeted(SpellSlot.R, 650);
 
             Menu = MainMenu.AddMenu("Soft Veigar", "softveigar");
@@ -114,8 +114,7 @@ namespace EloBuddy_Veigar
             Drawing.OnDraw += Drawing_OnDraw;
             Interrupter.OnInterruptableSpell += Interrupter2_OnInterruptableTarget;
 
-            Chat.Print("Soft Veigar by TroopSoft Loaded", Color.Aqua)
-                ;
+            Chat.Print("Soft Veigar by TroopSoft Loaded", Color.Aqua);
             Chat.Print("If any Bug does exist , message TroopSoft on EloBuddy!", Color.CadetBlue);
             Chat.Print("Dominate this game!!", Color.Green);
             Chat.Print("HAVE FUN!", Color.LightSalmon);
